@@ -1,0 +1,46 @@
+-- Shell and Exec Forms --
+
+RUN, CMD, ENTRYPOINT can all be specified in one of two forms: EXEC or SHELL.
+
+SHELL
+<instruction> <command>
+effectively: /bin/sh -c <command>
+
+RUN apk --no-cache add python3
+
+/bin/sh -c apk --no-cache add python3
+
+typically RUN is used with this form
+
+
+EXEC
+<instruction> ["executable", "parameter", "parameter", ...]
+
+RUN ["apk", "--no-cache", "add", "python3"]
+
+apk --no-cache add python3
+
+typically ENTRYPOINT and CMD are used in this form
+
+Show dockerfile.shell is same as slim or whatever.
+
+-- CMD --
+CMD ["..."] sets default command.
+Only last CMD instruction will be used, all others ignored.
+Has specifial third form:
+
+CMD ["parameter", "parameter", ...] which adds default parameters to the ENTRYPOINT cmd
+
+This is ignored if you run with command line parameters
+
+-- ENTRYPOINT --
+ENTRYPOINT ["..."] sets a executable with parameters to run.
+Not ignored when run with command line parameters
+
+docker build -t test -f dockerfile.entrypoint .
+
+docker run test
+-> Hello World
+
+docker run test WUT
+-> Hello WUT

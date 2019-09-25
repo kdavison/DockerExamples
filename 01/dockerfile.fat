@@ -1,0 +1,15 @@
+FROM alpine:3.9
+
+RUN apk add --no-cache python3
+
+RUN python3 -m ensurepip
+
+RUN rm -r /usr/lib/python*/ensurepip
+
+RUN pip3 install --no-cache --upgrade pip setuptools wheel
+
+RUN rm -r /usr/bin/pip
+
+RUN ln -sf pip3 /usr/bin/pip
+
+ENTRYPOINT ["python3"]

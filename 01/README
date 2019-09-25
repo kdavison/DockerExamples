@@ -1,0 +1,24 @@
+Anatomy of dockerfile.fat:
+  1. FROM statement: What image we are basing our dockerfile on (90% of cases)
+  2. RUN statements: "sh -c <foo>"
+
+docker build -t fat -f dockerfile.fat .
+
+docker build -t slim -f dockerfile.slim .
+
+docker run -it fat
+
+docker run -it slim
+
+docker images fat
+
+docker images slim
+
+docker history fat
+
+docker history slim
+
+docker attach <slim>
+
+Expected:
+  Fat has many layers is roughly ~10MB larger and slim
