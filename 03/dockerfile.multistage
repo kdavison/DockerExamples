@@ -1,0 +1,16 @@
+FROM alpine:3.9 as builder
+
+RUN apk update && \
+    apk add alpine-sdk
+COPY main.cc .
+RUN g++ main.cc
+
+FROM alpine:3.9
+
+RUN apk update && \
+    apk add \
+      libstdc++
+
+COPY --from=builder /a.out .
+
+CMD ["./a.out"]

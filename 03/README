@@ -1,0 +1,8 @@
+docker build -t multi -f dockerfile.multistage .
+docker build -t single -f dockerfile.singlestage .
+
+docker run -it multi
+docker run -it single
+
+docker images multi
+docker images single
